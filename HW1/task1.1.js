@@ -1,25 +1,7 @@
-const readline = require('readline');
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  prompt: 'Enter a string (type "exit"  to finish)> '
-});
-
-const lineEventListener = (inputString) => {
-  if (inputString === 'exit') {
-    rl.close();
-    rl.removeListener('line', lineEventListener);
-    process.exit();
+process.stdin.setEncoding('utf8');
+process.stdin.on('readable', () => {
+  var inputString = process.stdin.read();
+  if(inputString !== null) {
+    process.stdout.write(`${inputString.split("").reverse().join("").slice(1)}\n`);
   }
-
-  const reversedString = inputString.split("").reverse().join("");
-  console.log("Reversed string is: ", reversedString);
-  rl.prompt();
-}
-
-
-rl.on('line', lineEventListener);
-
-rl.prompt();
-
+});
